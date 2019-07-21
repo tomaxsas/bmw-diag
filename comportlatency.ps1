@@ -57,6 +57,17 @@ function Get-IniFile
     return $ini
 }
 
+function Exit-PressKey
+{
+    # If running in the console, wait for input before closing.
+    if ($Host.Name -eq "ConsoleHost")
+    {
+        Write-Host "Press any key to continue..."
+        $Host.UI.RawUI.FlushInputBuffer()   # Make sure buffered input doesn't "press a key" and skip the ReadKey().
+        $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyUp") > $null
+    }
+}
+
 # Get COM port set for EDIABAS
 try {
     $obdIni = Get-IniFile $obdIniPath -ErrorAction Stop
@@ -65,7 +76,7 @@ try {
 }
 catch {
     Write-Host "Failed to read $obdIniPath, exiting." -ForegroundColor Red
-    read-host 'Press ENTER to exit...'
+    Exit-PressKey
     break
 }
 
@@ -75,7 +86,7 @@ try {
 }
 catch [System.Management.Automation.ItemNotFoundException] {
     Write-Host 'No FTDI COM ports found, exiting.' -ForegroundColor Red
-    read-host 'Press ENTER to exit...'
+    Exit-PressKey
     break
 }
 $found = $false
@@ -101,4 +112,5 @@ foreach ($port in $ftdiPorts) {
 if ($found -ne $true) {
     Write-Host "No $portName was found, check if device exist"
 }
-read-host 'Press ENTER to exit...'
+
+Exit-PressKey
