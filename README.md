@@ -12,4 +12,4 @@ To run script double click ***comportlatency.bat*** batch file
 
 Batch script for easier selection of chasis for programing with WinKFP.
 
-Tools like BMW Coding tool copies selected chasis data, this script uses file system links, so chasis change is instant. This is only for WinKFP, for Inpa and NCSexpert use BMW Coding tool to update. In script edit *ecu_folder* variable to point to ecudata folder.
+Tools like BMW Coding tool copies selected chasis data, this script uses file system links, so chasis change is instant. This is only for WinKFP, for Inpa and NCSexpert use BMW Coding tool to update. In script edit *ecu_folder* variable to point to ecudata folder. Everything in *C:\EC-APPS\NFS\DATA* will be **DELETED**. Script does not have much error checking, so enter folder number carefully.
